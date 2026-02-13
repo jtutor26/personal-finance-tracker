@@ -20,6 +20,7 @@ public class ExpenseManager {
         expenseDAO.create(expense);
         // update the user's balance
         user.setBalance(user.getBalance().add(amount));
+        userDAO.update(user);
         return expense;
     }
 

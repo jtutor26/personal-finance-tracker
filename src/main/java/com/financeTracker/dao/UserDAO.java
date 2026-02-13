@@ -73,13 +73,29 @@ public class UserDAO {
         }
     }
 
+    public void update(User user) {
+        String sql = "UPDATE users SET balance = ? WHERE id = ?";
+
+        try (Connection conn = Connector.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setBigDecimal(1, user.getBalance());
+            ps.setInt(2, user.getId());
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating user balance", e);
+        }
+    }
+
     private User mapRow(ResultSet rs) throws SQLException {
         return new User(
                 rs.getInt("id"),
-                rs.getString("first_name"),
-                rs.getString("last_name"),
                 rs.getString("username"),
                 rs.getString("password"),
+                rs.getString("first_name"),
+                rs.getString("last_name"),
                 rs.getBigDecimal("balance")
         );
     }
