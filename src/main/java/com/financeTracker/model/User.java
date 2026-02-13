@@ -10,6 +10,14 @@ public class User {
     private String last_name;
     private BigDecimal balance;
 
+    public User(String username, String password, String first_name, String last_name, BigDecimal balance){
+        this.username = username;
+        this.password = password;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.balance = balance;
+    }
+
     public User(int id, String username, String password, String first_name, String last_name, BigDecimal balance) {
         this.id = id;
         this.username = username;
