@@ -20,6 +20,14 @@ public class Expense {
         this.date = date;
     }
 
+    public Expense(int userId, BigDecimal amount, String label, String description, Timestamp date) {
+        this.userId = userId;
+        this.amount = amount;
+        this.label = label;
+        this.description = description;
+        this.date = date;
+    }
+
     public int getId() {
         return id;
     }

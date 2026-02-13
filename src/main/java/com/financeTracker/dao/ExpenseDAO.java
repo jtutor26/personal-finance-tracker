@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseDAO {
-
-    // 1. CREATE (Save a new expense)
     public int create(Expense expense) {
         String sql = "INSERT INTO expenses (user_id, amount, label, description, date) VALUES (?, ?, ?, ?, ?) RETURNING id";
 
@@ -36,8 +34,6 @@ public class ExpenseDAO {
         }
     }
 
-    // 2. READ (Get all expenses for ONE specific user)
-    // We sort by date DESC so the most recent shows up first!
     public List<Expense> listByUser(int userId) {
         String sql = "SELECT * FROM expenses WHERE user_id = ? ORDER BY date DESC";
         List<Expense> list = new ArrayList<>();
@@ -59,7 +55,6 @@ public class ExpenseDAO {
         }
     }
 
-    // 3. DELETE (Remove an expense by its ID)
     public boolean delete(int id) {
         String sql = "DELETE FROM expenses WHERE id = ?";
 
@@ -68,14 +63,13 @@ public class ExpenseDAO {
 
             ps.setInt(1, id);
             int rowsAffected = ps.executeUpdate();
-            return rowsAffected == 1; // Returns true if 1 row was deleted
+            return rowsAffected == 1;
 
         } catch (SQLException e) {
             throw new RuntimeException("Error deleting expense", e);
         }
     }
 
-    // HELPER: Converts a raw database row into a Java Object
     private Expense mapRow(ResultSet rs) throws SQLException {
         return new Expense(
                 rs.getInt("id"),
